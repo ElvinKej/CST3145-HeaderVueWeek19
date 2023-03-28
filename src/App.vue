@@ -24,6 +24,14 @@ import TheWelcome from './components/TheWelcome.vue'
     <header>
       <h1>{{ sitename }}</h1>
       <button @click="showCheckout">{{this.cart.length}}Checkout</button>
+      <div id="Banner">
+            <button v-if="enableCart" @click="toggleShowProduct"> {{totalItemsInTheCart}}> Checkout
+              <font-awesome-icon :icon="['fas', 'shopping-cart']" />
+            </button>
+            <button disabled v-else>View Cart
+              <font-awesome-icon :icon="['fas', 'cart-arrow-down']" />
+            </button>
+      </div>
     </header>
     <main>
       <component :is="currentView"></component>
@@ -53,6 +61,11 @@ export default {
       } else {
         this.currentView = ProductList;
       }
+    }
+  },
+  computed: {
+    totalItemsInTheCart: function() {
+      return this.cart.length || "";
     }
   }
 };
